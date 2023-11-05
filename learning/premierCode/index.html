@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+  </head>
+
+  <body>
+    <h1>Number guessing game</h1>
+
+    <p>We have selected a random number between 1 and 100. 
+    See if you can guess it in 10 turns or fewer. 
+    We'll tell you if your guess was too high or too low.</p>
+
+    <div class="form">
+      <label for="guessField">Enter a guess: </label>
+      <input type="number" min="1" max="100" required id="guessField" class="guessField">
+      <input type="submit" value="Submit guess" class="guessSubmit">
+    </div>
+
+    <div class="resultParas">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+    </div>
+  </body>
+  <script>
+
+    //creer le nombre mystere
+let randomNumber = Math.floor(Math.random() * 100) + 1 ;
+
+//selectionner les guess et le message pour indiquer a l'utilisateur si le nb mystere est sup ou inf
+let guesses = document.querySelector('.guesses');
+let lastResult = document.querySelector('.lastResult');
+let lowOrHi = document.querySelector('.lowOrHi');
+
+//selectionner l'input et le btn pour tester le nombre saisi
+let guessSubmit = document.querySelector(".guessSubmit");
+let guessField = document.querySelector(".guessField");
+
+//Gerer le nombre de try et le reset du jeu
+let guessCount = 1;
+let resetButton;
+guessField.focus();
+
+function checkGuess() {
+
+    let userGuess = Number(guessField.value); //convertit en nombre la chaine de caractere saisie dans guessField
+    if(guessCount === 1){ //comportement a la premiere execution
+        guesses.textContent = 'Propositions précédentes : ';
+    }
+    guesses.textContent += userGuess + " ";
+
+    if(userGuess === randomNumber){//comportement en cas de victoire
+        lastResult.textContent = "Bravo, tu as trouvé le nombre !";
+        lastResult.style.color = "green";
+        lowOrHi.textContent = "";
+        setGameOver();
+    }else if(guessCount === 10){//comportement en cas de défaite
+        lastResult.textContent = '!!! PERDU !!!!';
+        setGameOver();
+    }else{//comportement en cas de guess (de base)
+        lastResult.textContent = 'Faux !';
+        lastResult.style.color = "red";
+        if(userGuess < randomNumber){
+            lowOrHi.textContent = 'Le nombre saisi est trop petit.';
+        }else if(userGuess > randomNumber){
+            lowOrHi.textContent = 'Le nombre saisi est trop grand.';
+        }
+    }
+
+    guessCount++; //increment le nb de guess
+    guessField.value = ""; //vider l'input
+    guessField.focus(); //focus l'input
+}
+
+function setGameOver(){
+    guessField.disabled = true; //rend untargetable l'input
+    guessSubmit.disabled = true; //rend untargetable le btn
+    resetButton = document.createElement('button');
+    resetButton.textContent = 'Reset';
+    document.body.appendChild(resetButton);//grephe le btn au body
+    resetButton.addEventListener("click", resetGame); //ajoute un onClick sur le btn reset qui trigger resetGame
+}
+
+function resetGame(){
+    guessCount = 1; //compteur à 1
+    
+    let resetParas = document.querySelectorAll('.resultParas p'); //recupere tous les p dans la div resultParas (guesses, lastResult et lowOrHi) pour vider leur valeur en oneshot
+    for(let i = 0; i < resetParas.length ; i++){
+        resetParas[i].textContent = "";
+    }
+    resetButton.parentNode.removeChild(resetButton); //supprime le btn reset
+
+    guessField.disabled = false; //rend l'input targetable
+    guessSubmit.disabled = false; //rend le btn targetable
+    guessField.value = ""; //vide l'input
+    guessField.focus(); //focus l'input
+
+    lastResult.style.color = "black"; //reset la couleur de lastResult
+
+    randomNumber = Math.floor(Math.random() * 100) + 1; //genere un nouveau nombre mystere
+
+}
+
+guessSubmit.addEventListener('click', checkGuess);
+
+checkGuess();
+
+  </script>
+</html>

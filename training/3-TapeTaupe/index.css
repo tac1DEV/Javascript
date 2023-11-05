@@ -1,0 +1,31 @@
+.grid{
+    width: 606px;
+    height: 606px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square{
+    width: 200px;
+    height: 200px;
+    border: solid 1px black;
+}
+
+.mole{
+    background-image: url(img/basic.jpg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+.GoldenMole{
+    background-image: url(img/golden.jpg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+}
+
+.gone{
+    display:none;
+}

@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+/*Heart-Rain CSS*/
+.heart{
+    position: fixed;
+    top:-5vh;
+    transform: translateY(0);
+    animation: fall 2s linear;
+    font-size: 2rem;
+}
+
+@keyframes fall{
+    to{
+        transform: translateY(105vh);
+    }
+}
+/*Heart-Rain CSS*/
+/*Popup CSS*/
+button{
+    background-color: rebeccapurple;
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.popup-container{ 
+    position: fixed;
+    top: 0; 
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(150, 150, 150, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-container.active{
+    z-index: 10;
+    display:flex;
+} 
+
+.popup{ /*permet de faire une "fenetre" avec un effet d'ombre grace au box shadow*/
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3); /* offset-x | offset-y | blur-radius | color */
+    padding: 2rem;
+    position: relative;
+    width: 500px;
+}
+
+.popup button{
+    background-color: #fff;
+    color: rebeccapurple;
+    font-size: 2rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+/*Popup CSS*/

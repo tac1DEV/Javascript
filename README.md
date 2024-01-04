@@ -1,2 +1,2 @@
 # Javascript
-Here I post stuff I do to train my js skills
+ I post here stuff I do to train my javascript skills 
